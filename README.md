@@ -1,142 +1,103 @@
-# Project-006 : Kittens Carousel Static Website deployed on AWS Cloudfront, S3 and Route 53 using Cloudformation
+# Kittens Carousel Static Website Deployed on AWS CloudFront, S3, and Route 53 Using CloudFormation 🐱🌐
 
-## Description
+## Overview 🚀
 
-Kittens Carousel is a static website application deployed on AWS Simple Storage Service (S3), served through Cloudfront and Route 53 using AWS Cloudformation Service.
+The **Kittens Carousel** is a static web application deployed on AWS. The application is hosted on **Amazon S3**, distributed via **CloudFront**, and mapped to a custom domain using **Route 53**. The entire deployment process is automated using **AWS CloudFormation**.
 
-## Problem Statement
+## Problem Statement 💡
 
 ![Project_006](Project_006.png)
 
-- Your company has recently started a web application project that will serve as an attraction point for pet lovers. As a first step of the project, you have deployed the app on EC2 instance and showed that design is good and working, thus you can go to next step. Developers in your team have prepared kittens carousel application and pushed necessary files for the project to the repository on Github.
+Your company has launched a new web application designed to attract pet lovers 🐾. As part of the project, you've successfully tested the design and functionality on an EC2 instance. Now, the next step is to deploy the app as a static webpage.
 
-- Your task is to deploy the application as static web page in the production environment. Thus, you need to deploy the web application using the `index.html` and an images given within the `static-web` folder. Note the followings for your web application.
-  
-  - User should face first with `index.html` when web app started.
+The development team has prepared the **Kittens Carousel** application, and the necessary files are pushed to a GitHub repository.
 
-  - Application should be deployed on AWS S3 as static website.
+Your task is to deploy this static web page into a production environment with the following requirements:
 
-  - Application should be served to public through domain name of the company using AWS Cloudfront and Route 53. Thus, you need to prepare a Cloudformation template with following configurations;
+### Requirements 📝
 
-    - The application stack should be created with new AWS resources.
+1. **Index Page**: Ensure the `index.html` is the default page when the web app is accessed 🌍.
+   
+2. **AWS S3**: The web application must be deployed on **Amazon S3** as a static website 🏠.
+   
+3. **Domain Name Setup**: The application should be served through a custom domain (e.g., `kittens.clarusway.us`) using **AWS CloudFront** and **Route 53**. You will use **CloudFormation** to configure the resources.
 
-    - The application stack should take two parameters from the user;
+4. **CloudFormation Template**: You need to create a CloudFormation template with the following configurations:
 
-      - The DNS name of an existing Amazon Route 53 hosted zone e.g. `clarusway.us`
+   - **Input Parameters**:
+     - DNS name of an existing **Route 53** hosted zone (e.g., `clarusway.us`).
+     - The full domain name for the web application (e.g., `kittens.clarusway.us`).
+   
+   - **S3 Bucket Configuration**: The web files must be served from an S3 bucket configured as a static website host, ensuring the content is publicly accessible 🌐.
+   
+   - **CloudFront Configuration**: Set up a **CloudFront** distribution with the following:
+     - CloudFront should be associated with the full domain name of the application 🔗.
+     - Communication between CloudFront and S3 must be secure 🔒.
+     - The default page for CloudFront should be `index.html` 🖥️.
+     - Use HTTP/2.
+     - Cache behavior should allow `GET` and `HEAD` methods, without forwarding cookies 🍪.
+     - All requests should be redirected to HTTPS 🔑.
+     - Use an ACM certificate for securing connections 🔐.
 
-      - The full domain name e.g. `kittens.clarusway.us` for the web application
+   - **Route 53 Record Set**: A Route 53 record set should point to the CloudFront distribution 🌟.
 
-    - The Web Application files should be served from S3 bucket which should be configured as a static website host and the content should be reachable from anywhere.
+   - **Outputs**:
+     - Full domain name of the **Kittens Carousel** web application 🏷️.
+     - Endpoint of the **CloudFront** distribution 🌍.
+     - Name of the **S3** bucket hosting the website 🏠.
 
-    - Cloudfront should be set as a cache server which points to S3 bucket of the web app with following configurations;
+5. **File Upload**: The application files must be uploaded to the S3 bucket from a local Git repository using AWS CLI commands 💻.
 
-      - The cloudfront distribution should be connected to the full domain name of the application.
-
-      - The cloudfront distribution should communicate with S3 bucket securely.
-
-      - The cloudfront distribution should default to `index.html`.
-
-      - HTTP version 2 should be employed.
-
-      - As cache behavior;
-
-        - `GET` and `HEAD` methods should be allowed.
-
-        - Cookies should not be forwarded to bucket.
-
-        - All request should be redirected to HTTPS.
-
-        - Newly created ACM Certificate should be used for securing connections.
-
-    - Within Route 53 a record set should be configured to send requests to the Cloudfront distribution.  
-
-    - After the stack created, following outputs should be given;
-
-      - Full DomainName of Kittens Carousel Application
-
-      - Endpoint for Kittens Cloudfront Distribution
-
-      - Name of S3 Bucket for Kittens Website
-
-  - The Application files should be uploaded to the application S3 bucket from local git repo using AWS CLI commands.
-
-## Project Skeleton
+## Project Structure 📂
 
 ```text
 006-kittens-carousel-static-web-s3-cf (folder)
 |
-|----readme.md              # Given to the students (Definition of the project)
-|----cfn-template.yml       # To be delivered by students (Cloudformation template)
-|----upload-script.sh       # To be delivered by students (Script to upload website content to S3)
+|----readme.md              # Project definition and instructions 📄
+|----cfn-template.yml       # CloudFormation template (to be delivered by students) 📜
+|----upload-script.sh       # Script to upload website content to S3 (to be delivered by students) 📤
 |----static-web
-        |----index.html     # Given to the students (HTML file)
-        |----cat0.jpg       # Given to the students (image file)
-        |----cat1.jpg       # Given to the students (image file)
-        |----cat2.jpg       # Given to the students (image file)
-```
+        |----index.html     # Main HTML file 🖥️
+        |----cat0.jpg       # Image file 🐱
+        |----cat1.jpg       # Image file 🐱
+        |----cat2.jpg       # Image file 🐱
 
-## Expected Outcome
+Expected Outcome 🎯
+Skills Covered 🔧:
+Static Website Deployment on AWS 🌐.
+Bash Scripting for automation 📝.
+AWS S3 for static web hosting 🏠.
+AWS CloudFront for content delivery 🚀.
+AWS Certificate Manager for secure connections 🔒.
+AWS Route 53 for DNS management 🌍.
+AWS CloudFormation for infrastructure as code 📦.
+Git & GitHub for version control 🗂️.
+Learning Outcomes 🎓:
+By the end of this project, students will be able to:
 
-![Project 101 : Kittens Carousel Application Snapshot](./project-006-snapshot.png)
+Demonstrate bash scripting skills to upload application files to an S3 bucket using AWS CLI 🖥️.
+Configure S3 buckets, ACM certificates, CloudFront distributions, and Route 53 record sets through CloudFormation 🔧.
+Write a CloudFormation template to manage AWS resources 📜.
+Launch AWS infrastructure stacks using CloudFormation 🚀.
+Use Git for version control and interact with GitHub repositories 📍.
+Solution Steps 🛠️
+Step 1: Clone or download the project definition from the Clarusway GitHub repository 🧑‍💻.
 
-### At the end of the project, following topics are to be covered;
+Step 2: Create a local folder to store the project files 🗂️.
 
-- Static Website Deployment
+Step 3: Write the CloudFormation template to deploy the application 📜.
 
-- Bash scripting
+Step 4: Deploy the application using the CloudFormation template 🚀.
 
-- AWS Simple Storage Service
+Step 5: Upload the application files to the S3 bucket using AWS CLI from your local Git repository 💻.
 
-- AWS Cloudfront Distribution
-
-- AWS Certificate Manager
-
-- AWS Route 53 Service
-
-- AWS Cloudformation Service
-
-- AWS Cloudformation Template Design
-
-- Git & Github for Version Control System
-
-### At the end of the project, students will be able to;
-
-- demonstrate bash scripting skills using AWS CLI to upload the application files to S3 bucket.
-
-- configure S3 buckets through Cloudformation.
-
-- configure ACM Certificate through Cloudformation.
-
-- configure Cloudfront through Cloudformation.
-
-- configure Route 53 record set through Cloudformation.
-
-- configure Cloudformation template to use AWS Resources.
-
-- use AWS Cloudformation Service to launch stacks.
-
-- use git commands (push, pull, commit, add etc.) and Github as Version Control System.
-
-## Steps to Solution
-  
-- Step 1: Download or clone project definition from `clarusway` repo on Github
-
-- Step 2: Create project folder for local public repo on your pc
-
-- Step 3: Prepare a cloudformation template to deploy your app
-
-- Step 4: Deploy your application on AWS Cloud using Cloudformation template
-
-- Step 5: Upload your application files into S3 bucket from your local git repo
-
-## Notes
-
-- Customize the application by hard-coding your name instead of `student_name` within `index.html`.
-
-- Nice to have >>>>  Upload object using CFN 
+Additional Notes ⚙️
+Customize the index.html by replacing student_name with your name ✍️.
+Optional: You may upload objects to S3 using CloudFormation if desired 🎉.
 
 ## Resources
 
 - [AWS Cloudformation User Guide](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html)
 
 - [AWS CLI Command Reference](https://docs.aws.amazon.com/cli/latest/index.html)
+🔗 **GitHub Repo:[ https://github.com/aredo01/static-web-app-cloudfront.git] 🚀
